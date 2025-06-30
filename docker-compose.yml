@@ -1,9 +1,26 @@
 version: '3.8'
 
 services:
-  auth-service:
-    build: ./
-    container_name: auth-service
+  devapp:
+    build:
+      context: ./
+      args:
+        JAR_NAME: build/libs/demo1-0.0.1-SNAPSHOT.jar
+        SERVER_PORT: "8080"
+    image: devapp
+    container_name: devapp
     ports:
       - "8080:8080"
+    restart: unless-stopped
+
+  prodapp:
+    build:
+      context: ./
+      args:
+        JAR_NAME: build/libs/demo1-0.0.1-SNAPSHOT.jar
+        SERVER_PORT: "8081"
+    image: prodapp
+    container_name: prodapp
+    ports:
+      - "8081:8081"
     restart: unless-stopped
